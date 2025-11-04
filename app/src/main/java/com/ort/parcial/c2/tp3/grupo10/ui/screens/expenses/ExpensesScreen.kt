@@ -14,11 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,20 +25,16 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.ort.parcial.c2.tp3.grupo10.R
 import com.ort.parcial.c2.tp3.grupo10.domain.model.Expense
 import com.ort.parcial.c2.tp3.grupo10.ui.components.BottomNavBar
 import com.ort.parcial.c2.tp3.grupo10.ui.components.FinancialHeader
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.*
-import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlinx.serialization.Serializable
-import org.json.JSONObject
-import org.json.JSONArray
-import android.content.Context
-import androidx.compose.ui.platform.LocalContext
 
 // Mapeo de categorías a iconos
 fun getCategoryIcon(categoryName: String): Int {
@@ -56,39 +48,6 @@ fun getCategoryIcon(categoryName: String): Int {
         "savings" -> R.drawable.svg_savings
         "entertainment" -> R.drawable.svg_entertainment
         else -> R.drawable.svg_more
-    }
-}
-
-// Función para cargar expenses del JSON
-fun loadExpensesFromJson(context: Context, categoryName: String): List<Expense> {
-    return try {
-        val jsonString = context.assets.open("expenses.json").bufferedReader().use { it.readText() }
-        val jsonObject = JSONObject(jsonString)
-        val expensesArray = jsonObject.getJSONArray("expenses")
-        
-        val expenses = mutableListOf<Expense>()
-        for (i in 0 until expensesArray.length()) {
-            val expenseJson = expensesArray.getJSONObject(i)
-            val category = expenseJson.getString("category")
-            
-            // Filtrar por categoría
-            if (category.equals(categoryName, ignoreCase = true)) {
-                expenses.add(
-                    Expense(
-                        id = expenseJson.getString("id"),
-                        title = expenseJson.getString("title"),
-                        amount = expenseJson.getDouble("amount"),
-                        date = expenseJson.getString("date"),
-                        time = expenseJson.getString("time"),
-                        category = category,
-                        iconResId = getCategoryIcon(category)
-                    )
-                )
-            }
-        }
-        expenses
-    } catch (e: Exception) {
-        emptyList()
     }
 }
 
@@ -108,14 +67,12 @@ fun ExpensesScreen(
     categoryName: String,
     navController: NavHostController? = null,
     bottomSelected: Int = 3,
-    onBottomSelect: (Int) -> Unit = {}
+    onBottomSelect: (Int) -> Unit = {},
+    viewModel: ExpenseViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
-    val expenses = remember { mutableStateOf<List<Expense>>(emptyList()) }
-    
-    LaunchedEffect(categoryName) {
-        expenses.value = loadExpensesFromJson(context, categoryName)
-    }
+    // Obtener expenses desde Room usando el ViewModel
+    val expenses by viewModel.getExpensesByCategory(categoryName)
+        .collectAsStateWithLifecycle()
     
     // Obtener el icono de la categoría
     val categoryIcon = getCategoryIcon(categoryName)
@@ -177,7 +134,7 @@ fun ExpensesScreen(
                         // Lista de expenses agrupadas por mes - con weight para que ocupe el espacio disponible
                         Box(modifier = Modifier.weight(1f)) {
                             ExpenseList(
-                                expenses = expenses.value,
+                                expenses = expenses,
                                 categoryIcon = categoryIcon
                             )
                         }
@@ -186,7 +143,7 @@ fun ExpensesScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
                             onClick = { 
-                                navController?.navigate("add_expense")
+                                navController?.navigate("add_expense/$categoryName")
                             },
                             modifier = Modifier
                                 .fillMaxWidth()

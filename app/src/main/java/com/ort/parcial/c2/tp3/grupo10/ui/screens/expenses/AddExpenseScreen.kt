@@ -34,22 +34,28 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.geometry.Size
 import androidx.compose.material3.Icon
-
-// Lista de categorías disponibles
-val categories = listOf(
-    "Food", "Transport", "Medicine", "Groceries",
-    "Rent", "Gifts", "Savings", "Entertainment", "More"
-)
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ort.parcial.c2.tp3.grupo10.ui.screens.expenses.ExpenseViewModel
+import com.ort.parcial.c2.tp3.grupo10.domain.model.Expense
+import java.util.UUID
 
 @Composable
 fun AddExpenseScreen(
+    defaultCategory: String? = null,  // Categoría por defecto cuando se navega desde ExpensesScreen
     navController: NavHostController? = null,
     bottomSelected: Int = 3,
-    onBottomSelect: (Int) -> Unit = {}
+    onBottomSelect: (Int) -> Unit = {},
+    viewModel: ExpenseViewModel = hiltViewModel()
 ) {
+    // Obtener categorías desde Room
+    val categoriesFlow = viewModel.getAllCategories()
+    val categories by categoriesFlow.collectAsStateWithLifecycle()
+    val categoryNames = categories.map { it.name }
+    
     // Estados para los campos
     var date by remember { mutableStateOf(formatDate(Date())) }
-    var selectedCategory by remember { mutableStateOf<String?>(null) }
+    var selectedCategory by remember { mutableStateOf<String?>(defaultCategory) }  // Inicializar con la categoría por defecto
     var amount by remember { mutableStateOf("") }
     var expenseTitle by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
@@ -134,7 +140,7 @@ fun AddExpenseScreen(
                             label = "Category",
                             selectedCategory = selectedCategory,
                             onCategorySelected = { selectedCategory = it },
-                            categories = categories,
+                            categories = categoryNames,
                             expanded = expandedCategory,
                             onExpandedChange = { expandedCategory = it }
                         )
@@ -186,8 +192,62 @@ fun AddExpenseScreen(
                         // Save Button
                         Button(
                             onClick = { 
-                                // TODO: Guardar expense cuando se implemente Room
-                                navController?.popBackStack()
+                                // Validar que todos los campos estén completos
+                                if (expenseTitle.isNotBlank() && 
+                                    amount.isNotBlank() && 
+                                    selectedCategory != null && 
+                                    date.isNotBlank()) {
+                                    
+                                    try {
+                                        // Convertir la fecha del formato "MMMM dd, yyyy" a "yyyy-MM-dd"
+                                        val dateFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH)
+                                        val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                        val parsedDate = dateFormat.parse(date)
+                                        val formattedDate = parsedDate?.let { outputFormat.format(it) } 
+                                            ?: SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                                        
+                                        // Obtener la hora actual
+                                        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                                        val currentTime = timeFormat.format(Date())
+                                        
+                                        // Crear el expense con la categoría seleccionada
+                                        val category = selectedCategory!! // Ya validado que no es null
+                                        val expense = Expense(
+                                            id = UUID.randomUUID().toString(),
+                                            title = expenseTitle,
+                                            amount = amount.toDoubleOrNull() ?: 0.0,
+                                            date = formattedDate,
+                                            time = currentTime,
+                                            category = category,
+                                            iconResId = getCategoryIcon(category)
+                                        )
+                                        
+                                        // Guardar en Room
+                                        viewModel.addExpense(expense)
+                                        
+                                        // Volver a la pantalla anterior
+                                        navController?.popBackStack()
+                                    } catch (e: Exception) {
+                                        // Si hay error al parsear la fecha, usar la fecha actual
+                                        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                                        val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+                                        
+                                        // Crear el expense con la categoría seleccionada
+                                        val category = selectedCategory!! // Ya validado que no es null
+                                        val expense = Expense(
+                                            id = UUID.randomUUID().toString(),
+                                            title = expenseTitle,
+                                            amount = amount.toDoubleOrNull() ?: 0.0,
+                                            date = currentDate,
+                                            time = currentTime,
+                                            category = category,
+                                            iconResId = getCategoryIcon(category)
+                                        )
+                                        
+                                        viewModel.addExpense(expense)
+                                        navController?.popBackStack()
+                                    }
+                                }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -317,15 +377,19 @@ fun CategoryDropdownField(
                     .onGloballyPositioned { coordinates ->
                         textFieldSize = coordinates.size.toSize()
                     }
-                    .clickable { onExpandedChange(true) },
+                    .clickable { onExpandedChange(!expanded) },
                 shape = RoundedCornerShape(16.dp),
                 trailingIcon = {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.svg_arrowdown),
-                        contentDescription = "Dropdown",
-                        modifier = Modifier.size(20.dp),
-                        tint = Void
-                    )
+                    IconButton(
+                        onClick = { onExpandedChange(!expanded) }
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.svg_arrowdown),
+                            contentDescription = "Dropdown",
+                            modifier = Modifier.size(20.dp),
+                            tint = Void
+                        )
+                    }
                 },
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
