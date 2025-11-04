@@ -1,4 +1,4 @@
-package com.ort.parcial.c2.tp3.grupo10.ui.screens.savings
+/*package com.ort.parcial.c2.tp3.grupo10.ui.screens.savings
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -33,14 +33,14 @@ import com.ort.parcial.c2.tp3.grupo10.ui.components.FinancialHeader
 import com.ort.parcial.c2.tp3.grupo10.ui.screens.expenses.ExpenseList
 import com.ort.parcial.c2.tp3.grupo10.ui.screens.expenses.ExpenseListHeader
 import com.ort.parcial.c2.tp3.grupo10.ui.screens.expenses.getCategoryIcon
-import com.ort.parcial.c2.tp3.grupo10.ui.screens.expenses.loadExpensesFromJson
+
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.BackgroundGreenWhiteAndLetters
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.MainGreen
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.PoppinsFamily
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.Void
 import org.json.JSONObject
 
-fun getCategoryIcon(categoryName: String): Int {
+fun getCategoryIcon(categoryName: String): Int {-
     return when (categoryName.lowercase()) {
         "food" -> R.drawable.svg_food
         "transport" -> R.drawable.svg_transport
@@ -96,7 +96,7 @@ fun SavingsScreen(categoryName: String,
     val expenses = remember { mutableStateOf<List<Expense>>(emptyList()) }
 
     LaunchedEffect(categoryName) {
-        expenses.value = loadExpensesFromJson(context, categoryName)
+       //expenses.value = loadExpensesFromJson(context, categoryName)
     }
     Scaffold(
         bottomBar = {
@@ -187,4 +187,4 @@ fun SavingsScreen(categoryName: String,
             }
         }
     }
-}
+}*/
