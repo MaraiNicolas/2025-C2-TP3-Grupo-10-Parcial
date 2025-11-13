@@ -1,5 +1,6 @@
 package com.ort.parcial.c2.tp3.grupo10.ui.components
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,10 +13,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,8 +34,8 @@ import com.ort.parcial.c2.tp3.grupo10.ui.theme.MainGreen
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.MyApplicationTheme
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.PoppinsFamily
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.Void
-
-
+// USAR AppScreenShell PARA UNIFICAR  TEMPLATES
+/*
 @Composable
 fun AppTemplate(
     title: String,
@@ -40,12 +46,20 @@ fun AppTemplate(
     onBottomSelect: (Int) -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
+    //bloque INTENT
+    val context = LocalContext.current
+    val activity = context as? Activity
+    var selectedIndex by remember { mutableIntStateOf(3) }
     Scaffold(
         containerColor = Color.White,
         bottomBar = {
             BottomNavBar(
-                selected = bottomSelected,
-                onSelect = onBottomSelect
+                selected = selectedIndex,
+                navController = navController!!, // <-- Pasamos el NavController
+                onSelect = { index ->
+                    selectedIndex = index // Solo actualizamos el estado visual
+                    // La lógica del Intent/navigate está en BottomNavBar.kt
+                }
             )
         }
     ) { innerPadding ->
@@ -169,3 +183,4 @@ fun AppTemplatePreview() {
         }
     }
 }
+*/

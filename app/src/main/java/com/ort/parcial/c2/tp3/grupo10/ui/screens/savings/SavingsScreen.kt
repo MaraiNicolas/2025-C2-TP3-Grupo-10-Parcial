@@ -1,5 +1,6 @@
 package com.ort.parcial.c2.tp3.grupo10.ui.screens.savings
 
+import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -56,23 +58,19 @@ fun SavingsScreen(
     bottomSelected: Int = 3,
     onBottomSelect: (Int) -> Unit = {}
 ) {
+    //bloque INTENT
     val context = LocalContext.current
+    val activity = context as? Activity
+    var selectedIndex by remember { mutableIntStateOf(3) }
     val savingsItems = InitialExpensesData.getInitialSavings()
     Scaffold(
         bottomBar = {
             BottomNavBar(
-                selected = bottomSelected,
+                selected = selectedIndex,
+                navController = navController!!, // <-- Pasamos el NavController
                 onSelect = { index ->
-                    when (index) {
-                        0 -> navController?.navigate("home")
-                        2 -> navController?.navigate("transactions")
-                        3 -> navController?.navigate("categories")
-                        4 -> { // <-- ÍNDICE 4: BOTÓN PROFILE
-                            val intent = Intent(context, MainActivity2::class.java)
-                            context.startActivity(intent)
-                        }
-                        else -> onBottomSelect(index)
-                    }
+                    selectedIndex = index // Solo actualizamos el estado visual
+                    // La lógica del Intent/navigate está en BottomNavBar.kt
                 }
             )
         },

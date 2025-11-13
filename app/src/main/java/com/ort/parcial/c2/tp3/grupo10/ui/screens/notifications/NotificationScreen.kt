@@ -8,62 +8,59 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.ort.parcial.c2.tp3.grupo10.R
-import com.ort.parcial.c2.tp3.grupo10.domain.model.NotificationItem
-import com.ort.parcial.c2.tp3.grupo10.ui.components.AppTemplate
+import com.ort.parcial.c2.tp3.grupo10.domain.model.NotificationItem // Asegúrate de que esta clase sea accesible
+import com.ort.parcial.c2.tp3.grupo10.ui.components.AppScreenShell // <-- Componente Base
+import com.ort.parcial.c2.tp3.grupo10.ui.components.BottomNavBar // <-- Componente de la barra
+import com.ort.parcial.c2.tp3.grupo10.ui.theme.BackgroundGreenWhiteAndLetters
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.Honeydew
 
 @Composable
 fun NotificationsScreen(
-    navController: NavHostController? = null,
-    bottomSelected: Int = -1,
-    onBottomSelect: (Int) -> Unit = {}
+    navController: NavHostController
 ) {
-    AppTemplate(
-        title = "Notification",
-        onBack = { navController?.popBackStack() },
-        onBellClick = { },
-        bottomSelected = bottomSelected,
-        onBottomSelect = { idx ->
-            when (idx) {
-                0 -> navController?.navigate("home")
-                1 -> navController?.navigate("analysis")
-                2 -> navController?.navigate("transactions")
-                3 -> navController?.navigate("categories")
-                4 -> navController?.navigate("profile")
-                else -> onBottomSelect(idx)
-            }
-        }
-    ) { innerPadding ->
-        Scaffold(
-            containerColor = Color.Transparent,
-        ) { scaffoldPadding ->
+    // Índice inicial nulo/inválido
+    var selectedIndex by remember { mutableIntStateOf(-1) }
+
+    AppScreenShell(
+        screenTitle = "Notification",
+        headerHeight = 140.dp,
+        navController = navController,
+        showBackButton = true,
+        showNotificationButton = false,
+        startSelectedIndex = -1
+    ) { innerPadding -> // <-- innerPadding ahora viene del AppScreenShell
+
+        // 1. Contenido Principal de Notificaciones (La lista)
+        Box(
+            // El padding de la BottomBar ya está aplicado por el AppScreenShell al Column
+            // Aquí solo manejamos el layout interno.
+            modifier = Modifier
+                .fillMaxSize()
+                .background(BackgroundGreenWhiteAndLetters) // Fondo que simula la tarjeta
+                .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)) // Curvas del Shell
+                .padding(horizontal = 0.dp) // Eliminamos padding horizontal si el Shell lo pone
+                .padding(innerPadding) // Usamos el padding pasado para compensar cualquier otro padding del Shell
+        ) {
+            // El Box interno para la lista (sin curvas, ya las puso el Shell)
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(bottom = innerPadding.calculateBottomPadding())
-                    .padding(scaffoldPadding)
-                    .background(Honeydew)
+                    .padding(horizontal = 16.dp, vertical = 12.dp) // Padding interno de la lista
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(topStart = 45.dp, topEnd = 45.dp))
-                        .background(Honeydew)
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
-                ) {
-                    NotificationList(contentPadding = PaddingValues(0.dp))
-                }
+                NotificationList(contentPadding = PaddingValues(0.dp))
             }
         }
     }
@@ -144,10 +141,4 @@ private fun NotificationList(contentPadding: PaddingValues) {
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewNotificationScreen() {
-    NotificationsScreen()
 }

@@ -1,7 +1,5 @@
 package com.ort.parcial.c2.tp3.grupo10.ui.components
 
-import android.app.Activity
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,18 +15,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.*
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import com.ort.parcial.c2.tp3.grupo10.R
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.LettersAndIcons
-import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.ui.platform.LocalContext
-import com.ort.parcial.c2.tp3.grupo10.MainActivity
-import kotlin.jvm.java
-
-
+import androidx.compose.foundation.layout.statusBarsPadding
 val STANDARD_HEADER_HEIGHT = 180.dp
 
 /**
@@ -38,78 +31,46 @@ val STANDARD_HEADER_HEIGHT = 180.dp
 @Composable
 fun AppScreenShell(
     screenTitle: String,
+    // PARÁMETROS BOOLEANOS PARA CONTROLAR LA VISIBILIDAD
+    showBackButton: Boolean = true, //MUESTRA LA FLECHA HACIA ATRAS
+    showNotificationButton: Boolean = true, //MUESTRA LA CAMPANITA
+    startSelectedIndex: Int? = null, //MUESTRA LA BOTONERA INFERIOR y la POSICION
     // La altura del header verde puede ser variable
     headerHeight: Dp = STANDARD_HEADER_HEIGHT,
     navController: NavHostController,
-    bottomBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit // Recibe el contenido único del formulario/lista
 ) {
+
     val context = LocalContext.current
-    val NAV_DESTINATION_KEY = "startDestination"
-    val NOTIFICATION_ROUTE = "notification"
     // 1. DIBUJAMOS EL FONDO PRINCIPAL Y EL CONTENEDOR DE APILAMIENTO
+
+    var selectedIndex by remember { mutableIntStateOf(startSelectedIndex ?: 0) }// determina el estado visual de BottomNavVar
+
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding()       // <-- primero: protegemos la status bar
             .background(MainGreen) // <--- ESTE DIBUJA EL FONDO VERDE OSCURO (MainGreen)
+
     ) {
         // --- 1. ICONOS DE NAVEGACIÓN Y TÍTULO (HIJOS DIRECTOS DEL BOX) ---
 
-        // A. FLECHA DE RETROCESO (Izquierda)
-        IconButton(
-            onClick = { navController.popBackStack() },
-            modifier = Modifier
+        // A. FLECHA DE RETROCESO (Izquierda) - CONDICIONAL
+        if (showBackButton) {
+            BackButton(navController = navController, modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(start = 38.dp, top = 69.dp) // Posición ajustada
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.bring_back),
-                contentDescription = stringResource(R.string.back_button_desc),
-                tint = Color.White,
-                modifier = Modifier.size(19.dp)
+                .padding(start = 38.dp, top = 69.dp)
             )
         }
 
-        // B. CAMPANA DE NOTIFICACIONES (Derecha)
-        IconButton(
-            onClick = {
-                val intent = Intent(context, MainActivity::class.java).apply {
-
-                    // ❗ CORRECCIÓN CLAVE: Usamos NEW_TASK y CLEAR_TASK ❗
-                    // Esto fuerza a Android a DESTRUIR la pila actual (incluyendo MainActivity2)
-                    // y RECREAR MainActivity desde cero.
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-                    // 2. Pasamos la ruta de destino deseada como extra
-                    putExtra(NAV_DESTINATION_KEY, NOTIFICATION_ROUTE)
-                }
-
-                context.startActivity(intent)
-
-                // Opcional, pero recomendado: Finalizar la Activity actual (MainActivity2)
-                // para que no quede en segundo plano.
-                (context as? Activity)?.finish()
-
-            },
-            modifier = Modifier
-                .align(Alignment.TopEnd) // <-- A la derecha
-                .padding(end = 16.dp, top = 61.dp)
-        ) {
-            // --- INICIO DEL CONTENEDOR GEOMÉTRICO ---
-            Box(
+        // B. CAMPANA DE NOTIFICACIONES (Derecha) - CONDICIONAL
+        if (showNotificationButton) {
+            NotificationButton(
+                navController = navController, // Se necesita para la lógica del Intent/navegación
                 modifier = Modifier
-                    .size(30.dp) // Tamaño de la campana y su fondo
-                    .background(BackgroundGreenWhiteAndLetters, CircleShape), // <-- FONDO CLARITO
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-
-                    imageVector = Icons.Outlined.Notifications,
-                    contentDescription = stringResource(R.string.notifications_button_desc),
-                    tint = LettersAndIcons.copy(alpha = 0.55f),
-                    modifier = Modifier.size(26.dp)
-                )
-            }
+                    .align(Alignment.TopEnd)
+                    .padding(end = 16.dp, top = 61.dp)
+            )
         }
 
         // C. TÍTULO PRINCIPAL (Centrado)
@@ -136,7 +97,19 @@ fun AppScreenShell(
             Scaffold(
                 containerColor = Color.Transparent,
                 contentWindowInsets = WindowInsets(0),
-                bottomBar = bottomBar // <-- Inyectamos la barra
+                bottomBar = {
+                    // LLAMADA FINAL: SI SE PASÓ UN ÍNDICE INICIAL, DIBUJA LA BARRA.
+                    if (startSelectedIndex != null) {
+                        BottomNavBar(
+                            selected = selectedIndex, // Usamos el estado local del Shell
+                            navController = navController,
+                            onSelect = { index ->
+                                selectedIndex = index // Actualiza el índice local
+                                // NOTA: La lógica de navegación está totalmente centralizada en BottomNavBar.kt
+                            }
+                        )
+                    }
+                }
             ) { paddingValues ->
                 Column(
                     modifier = Modifier

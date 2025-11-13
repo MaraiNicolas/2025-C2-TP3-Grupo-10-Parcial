@@ -1,6 +1,7 @@
 
 package com.ort.parcial.c2.tp3.grupo10.ui.screens.expenses
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,6 +35,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.geometry.Size
 import androidx.compose.material3.Icon
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ort.parcial.c2.tp3.grupo10.ui.screens.expenses.ExpenseViewModel
@@ -78,18 +80,18 @@ fun AddExpenseScreen(
     var message by remember { mutableStateOf("") }
     
     var expandedCategory by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val activity = context as? Activity
+    var selectedIndex by remember { mutableIntStateOf(3) }
 
     Scaffold(
         bottomBar = {
             BottomNavBar(
-                selected = bottomSelected,
+                selected = selectedIndex,
+                navController = navController!!, // <-- Pasamos el NavController
                 onSelect = { index ->
-                    when (index) {
-                        0 -> navController?.navigate("home")
-                        2 -> navController?.navigate("transactions")
-                        3 -> navController?.navigate("categories")
-                        else -> onBottomSelect(index)
-                    }
+                    selectedIndex = index // Solo actualizamos el estado visual
+                    // La lógica del Intent/navigate está en BottomNavBar.kt
                 }
             )
         },

@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.ort.parcial.c2.tp3.grupo10.ui.screens.AnalysisScreen
 import com.ort.parcial.c2.tp3.grupo10.ui.screens.GenericConfirmationScreen
 import com.ort.parcial.c2.tp3.grupo10.ui.screens.WelcomeScreen
 import com.ort.parcial.c2.tp3.grupo10.ui.screens.auth.LoginScreen
@@ -84,6 +85,8 @@ class MainActivity : ComponentActivity() {
                     // Onboarding
                     composable("onboarding1") { OnboardingScreen1(navController = navController) }
                     composable("onboarding2") { OnboardingScreen2(navController = navController) }
+
+                    composable("analysis") { AnalysisScreen(navController = navController) }
 
                     // Categories & Expenses
                     composable("categories") { CategoriesScreen(navController = navController) }

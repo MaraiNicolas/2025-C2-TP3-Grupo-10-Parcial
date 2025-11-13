@@ -1,5 +1,6 @@
 package com.ort.parcial.c2.tp3.grupo10.ui.screens.transactions
 
+import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,6 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +38,7 @@ import com.ort.parcial.c2.tp3.grupo10.MainActivity2
 import com.ort.parcial.c2.tp3.grupo10.R
 import com.ort.parcial.c2.tp3.grupo10.domain.model.Transaction
 import com.ort.parcial.c2.tp3.grupo10.domain.model.TransactionType
+import com.ort.parcial.c2.tp3.grupo10.ui.components.BottomNavBar
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.*
 
 @Composable
@@ -42,24 +47,19 @@ fun TransactionsScreen(
     viewModel: TransactionsViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    //bloque INTENT
     val context = LocalContext.current
+    val activity = context as? Activity
+    var selectedIndex by remember { mutableIntStateOf(2) }
 
     androidx.compose.material3.Scaffold(
         bottomBar = {
-            com.ort.parcial.c2.tp3.grupo10.ui.components.BottomNavBar(
-                selected = 2,
+            BottomNavBar(
+                selected = selectedIndex,
+                navController = navController!!, // <-- Pasamos el NavController
                 onSelect = { index ->
-                    when (index) {
-                        0 -> navController?.navigate("home")
-                        2 -> {/* ya estamos aquí */}
-                        3 -> navController?.navigate("categories")
-                        4 -> { // <-- ÍNDICE 4: BOTÓN PROFILE
-                            val intent = Intent(context, MainActivity2::class.java)
-                            context.startActivity(intent)
-                        }
-                        //else -> onBottomSelect(index)
-
-                    }
+                    selectedIndex = index // Solo actualizamos el estado visual
+                    // La lógica del Intent/navigate está en BottomNavBar.kt
                 }
             )
         },

@@ -1,5 +1,6 @@
 package com.ort.parcial.c2.tp3.grupo10.ui.screens.home
 
+import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -47,7 +48,10 @@ fun HomeScreen(
     bottomSelected: Int = 0,
     onBottomSelect: (Int) -> Unit = {}
 ) {
+    //bloque INTENT
     val context = LocalContext.current
+    val activity = context as? Activity
+    var selectedIndex by remember { mutableIntStateOf(0) }
     val transactions = listOf(
         HomeTransaction("Salary", "18:27 - April 30", "Monthly", "$4.000,00", false, R.drawable.money, "Monthly"),
         HomeTransaction("Groceries", "17:00 - April 24", "Pantry", "-$100,00", true, R.drawable.svg_groceries, "Weekly"),
@@ -61,18 +65,11 @@ fun HomeScreen(
     Scaffold(
         bottomBar = {
             BottomNavBar(
-                selected = bottomSelected,
+                selected = selectedIndex,
+                navController = navController!!, // <-- Pasamos el NavController
                 onSelect = { index ->
-                    when (index) {
-                        0 -> navController?.navigate("home")
-                        2 -> navController?.navigate("transactions")
-                        3 -> navController?.navigate("categories")
-                        4 -> { // <-- ÍNDICE 4: BOTÓN PROFILE
-                            val intent = Intent(context, MainActivity2::class.java)
-                            context.startActivity(intent)
-                        }
-                        else -> onBottomSelect(index)
-                    }
+                    selectedIndex = index // Solo actualizamos el estado visual
+                    // La lógica del Intent/navigate está en BottomNavBar.kt
                 }
             )
         },
