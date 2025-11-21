@@ -212,7 +212,7 @@ private fun PinInputContainer(
                     // Texto se muestra solo si el PIN está lleno
                     if (isFilled) {
                         Text(
-                            text = "•",
+                            text = stringResource(R.string.pin),
                             color = DarkModeGreenBar,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold

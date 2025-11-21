@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.geometry.Size
 import androidx.compose.material3.Icon
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ort.parcial.c2.tp3.grupo10.ui.screens.expenses.ExpenseViewModel
@@ -63,9 +64,10 @@ fun AddExpenseScreen(
     val categoriesFlow = viewModel.getAllCategories()
     val categories by categoriesFlow.collectAsStateWithLifecycle()
     val categoryNames = categories.map { it.name }
+    val context = LocalContext.current
 
     // Lista de categorías de savings para comparación
-    val savingsCategories = InitialExpensesData.getInitialSavings().map { it.name.lowercase().trim() }
+    val savingsCategories = InitialExpensesData.getInitialSavings(context).map { it.name.lowercase().trim() }
 
     // Estados para los campos
     var date by remember { mutableStateOf(formatDate(Date())) }
@@ -80,7 +82,6 @@ fun AddExpenseScreen(
     var message by remember { mutableStateOf("") }
     
     var expandedCategory by remember { mutableStateOf(false) }
-    val context = LocalContext.current
     val activity = context as? Activity
     var selectedIndex by remember { mutableIntStateOf(3) }
 
@@ -120,7 +121,7 @@ fun AddExpenseScreen(
                         // Back Arrow
                         Image(
                             painter = painterResource(id = R.drawable.ic_flecha_atras),
-                            contentDescription = "Back",
+                            contentDescription = stringResource(R.string.common_back),
                             modifier = Modifier
                                 .size(22.dp)
                                 .clickable { navController?.popBackStack() }
@@ -140,7 +141,7 @@ fun AddExpenseScreen(
                         // Notification Bell
                         Image(
                             painter = painterResource(id = R.drawable.ic_notification),
-                            contentDescription = "Notifications",
+                            contentDescription = stringResource(R.string.common_notifications),
                             modifier = Modifier
                                 .size(29.dp)
                                 .clickable { /* Handle notification click */ }
@@ -171,14 +172,14 @@ fun AddExpenseScreen(
                     ) {
                         // Date Input
                         ExpenseInputField(
-                            label = "Date",
+                            label = stringResource(R.string.date),
                             value = date,
                             onValueChange = { date = it },
-                            placeholder = "Select date",
+                            placeholder = stringResource(R.string.select_date),
                             trailingIcon = {
                                 Image(
                                     painter = painterResource(id = R.drawable.ic_calendar),
-                                    contentDescription = "Calendar",
+                                    contentDescription = stringResource(R.string.Calendar),
                                     modifier = Modifier.size(26.dp)
                                 )
                             },
@@ -188,7 +189,7 @@ fun AddExpenseScreen(
 
                         // Category Input (Dropdown)
                         CategoryDropdownField(
-                            label = "Category",
+                            label = stringResource(R.string.categories_title),
                             selectedCategory = selectedCategory,
                             onCategorySelected = { selectedCategory = it },
                             categories = categoryNames,
@@ -198,7 +199,7 @@ fun AddExpenseScreen(
 
                         // Amount Input
                         ExpenseInputField(
-                            label = "Amount",
+                            label = stringResource(R.string.Amount_title),
                             value = amount,
                             onValueChange = { 
                                 // Solo permitir números y punto decimal
@@ -210,11 +211,11 @@ fun AddExpenseScreen(
                                     amount = filtered
                                 }
                             },
-                            placeholder = "$0.00",
+                            placeholder = stringResource(R.string.cero),
                             keyboardType = KeyboardType.Decimal,
                             leadingContent = {
                                 Text(
-                                    text = "$",
+                                    text = stringResource(R.string.signoDolar),
                                     color = Void,
                                     fontSize = 16.sp,
                                     fontFamily = PoppinsFamily
@@ -224,18 +225,18 @@ fun AddExpenseScreen(
 
                         // Expense Title Input
                         ExpenseInputField(
-                            label = "Expense Title",
+                            label = stringResource(R.string.expense_title),
                             value = expenseTitle,
                             onValueChange = { expenseTitle = it },
-                            placeholder = "Enter expense title"
+                            placeholder = stringResource(R.string.enter_expense_title)
                         )
 
                         // Message Input (TextArea)
                         ExpenseTextAreaField(
-                            label = "Enter Message",
+                            label = stringResource(R.string.enter_message),
                             value = message,
                             onValueChange = { message = it },
-                            placeholder = "Enter Message"
+                            placeholder = stringResource(R.string.enter_message)
                         )
 
                         Spacer(modifier = Modifier.height(8.dp))
@@ -313,7 +314,7 @@ fun AddExpenseScreen(
                                 )
                             ) {
                                 Text(
-                                    text = "Save",
+                                    text = stringResource(R.string.save),
                                     color = LettersAndIcons,
                                     fontSize = 16.sp,
                                     fontFamily = PoppinsFamily,
@@ -421,7 +422,7 @@ fun CategoryDropdownField(
                 onValueChange = {},
                 placeholder = {
                     Text(
-                        text = "Select the category",
+                        text = stringResource(R.string.select_the_category),
                         color = Void.copy(alpha = 0.6f),
                         fontSize = 16.sp,
                         fontFamily = PoppinsFamily
@@ -441,7 +442,7 @@ fun CategoryDropdownField(
                     ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.svg_arrowdown),
-                            contentDescription = "Dropdown",
+                            contentDescription = stringResource(R.string.Dropdown),
                             modifier = Modifier.size(20.dp),
                             tint = Void
                         )

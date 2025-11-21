@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.ort.parcial.c2.tp3.grupo10.AppStrings
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -63,7 +64,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavHostControlle
 
             // El título reaprovecha la fuente LeagueSpartan del tema y el color primario configurado.
             Text(
-                text = "FinWise",
+                text = AppStrings.APP_TITLE,
                 color = Caribbean,
                 style = MaterialTheme.typography.headlineLarge.copy(
                     fontFamily = LeagueSpartanFamily,
@@ -76,7 +77,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavHostControlle
 
             // Mensaje introductorio con tipografía Poppins y color auxiliar de la paleta.
             Text(
-                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+                text = AppStrings.LOREM_SHORT,
                 color =Void,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontFamily = PoppinsFamily,

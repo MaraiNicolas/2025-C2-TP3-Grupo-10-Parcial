@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.ort.parcial.c2.tp3.grupo10.AppStrings
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,7 +41,7 @@ fun ProfileScreen(navController: NavHostController) {
             is UserProfileUiState.Loading -> {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Spacer(Modifier.height(40.dp))
-                    Text("Cargando perfil...", fontSize = 18.sp)
+                    Text(AppStrings.LOADING_PROFILE, fontSize = 18.sp)
                 }
             }
             is UserProfileUiState.Error -> {
@@ -55,8 +56,7 @@ fun ProfileScreen(navController: NavHostController) {
                     // --- A. IMAGEN DE PERFIL (COIL) ---
                     AsyncImage(
                         model = "https://picsum.photos/200/200",
-                        contentDescription = "Foto de perfil de ${user.name.firstname}",
-                        contentScale = ContentScale.Crop,
+                        contentDescription = stringResource(R.string.profile_photo, user.name.firstname),                        contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .size(120.dp)
                             .clip(CircleShape)
@@ -76,7 +76,7 @@ fun ProfileScreen(navController: NavHostController) {
                     // --- C. ID ---
                     Row {
                         Text(
-                            text = "ID: ",
+                            text = AppStrings.ID_LABEL,
                             color = LettersAndIcons,
                             fontFamily = PoppinsFamily,
                             fontWeight = FontWeight.SemiBold,

@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,7 +53,8 @@ fun EditProfileScreen(navController: NavHostController) {
             is UserProfileUiState.Loading -> {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Spacer(Modifier.height(40.dp))
-                    Text("Cargando perfil...", fontSize = 18.sp)
+                Text(text = stringResource(R.string.profile_loading),
+                    fontSize = 18.sp)
                 }
             }
             is UserProfileUiState.Error -> {
@@ -66,8 +68,7 @@ fun EditProfileScreen(navController: NavHostController) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     AsyncImage(
                         model = "https://picsum.photos/200/200",
-                        contentDescription = "Foto de perfil de ${user.name.firstname}",
-                        contentScale = ContentScale.Crop,
+                        contentDescription = stringResource(R.string.profile_photo, user.name.firstname),                        contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .size(120.dp)
                             .clip(CircleShape)
@@ -84,7 +85,7 @@ fun EditProfileScreen(navController: NavHostController) {
                     )
                     Row {
                         Text(
-                            text = "ID: ",
+                            text = stringResource(R.string.profile_id_label),
                             color = LettersAndIcons,
                             fontFamily = PoppinsFamily,
                             fontWeight = FontWeight.SemiBold,
@@ -105,7 +106,7 @@ fun EditProfileScreen(navController: NavHostController) {
 
 
     AppScreenShell(
-        screenTitle = "Edit My Profile",
+    screenTitle = stringResource(R.string.edit_profile_screen_title),
         headerHeight = PROFILE_HEADER_HEIGHT,
         navController = navController,
         startSelectedIndex = 4
@@ -171,7 +172,7 @@ private fun EditProfileContent(viewModel: ProfileViewModel, navController: NavHo
         ) {
 
             Text(
-                text = "Account Settings",
+                text = stringResource(R.string.edit_profile_account_settings),
                 color = Void,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -186,36 +187,36 @@ private fun EditProfileContent(viewModel: ProfileViewModel, navController: NavHo
                 is UserProfileUiState.Success -> {
                     val user = (uiState as UserProfileUiState.Success).user
                     LabeledEditableField(
-                        label = "Username",
+                        label = stringResource(R.string.edit_profile_username_label),
                         value = user.username,
                         onValueChange = { /* Handle username change */ }
                     )
                     Spacer(Modifier.height(10.dp))
                     LabeledEditableField(
-                        label = "Phone",
+                        label = stringResource(R.string.edit_profile_phone_label),
                         value = user.phone,
                         onValueChange = { /* Handle phone change */ }
                     )
                     Spacer(Modifier.height(10.dp))
                     LabeledEditableField(
-                        label = "Email Address",
+                        label = stringResource(R.string.edit_profile_email_label),
                         value = user.email,
                         onValueChange = { /* Handle email change */ }
                     )
                 }
                 is UserProfileUiState.Loading -> {
-                    LabeledEditableField(label = "Username", value = "Cargando...", onValueChange = {})
+                    LabeledEditableField(label = stringResource(R.string.edit_profile_username_label), value = stringResource(R.string.common_loading), onValueChange = {})
                     Spacer(Modifier.height(10.dp))
-                    LabeledEditableField(label = "Phone", value = "Cargando...", onValueChange = {})
+                    LabeledEditableField(label = stringResource(R.string.edit_profile_phone_label), value = stringResource(R.string.common_loading), onValueChange = {})
                     Spacer(Modifier.height(10.dp))
-                    LabeledEditableField(label = "Email Address", value = "Cargando...", onValueChange = {})
+                    LabeledEditableField(label = stringResource(R.string.edit_profile_email_label), value = stringResource(R.string.common_loading), onValueChange = {})
                 }
                 is UserProfileUiState.Error -> {
-                    LabeledEditableField(label = "Username", value = "Error", onValueChange = {})
+                    LabeledEditableField(label = stringResource(R.string.edit_profile_username_label), value = stringResource(R.string.common_error), onValueChange = {})
                     Spacer(Modifier.height(10.dp))
-                    LabeledEditableField(label = "Phone", value = "Error", onValueChange = {})
+                    LabeledEditableField(label = stringResource(R.string.edit_profile_phone_label), value = stringResource(R.string.common_error), onValueChange = {})
                     Spacer(Modifier.height(10.dp))
-                    LabeledEditableField(label = "Email Address", value = "Error", onValueChange = {})
+                    LabeledEditableField(label = stringResource(R.string.edit_profile_email_label), value = stringResource(R.string.common_error), onValueChange = {})
                 }
             }
 
@@ -223,12 +224,12 @@ private fun EditProfileContent(viewModel: ProfileViewModel, navController: NavHo
             Spacer(Modifier.height(16.dp))
 
             SettingsSwitchRow(
-                title = "Push Notifications",
+                title = stringResource(R.string.push_notifications),
                 checked = pushEnabled,
                 onCheckedChange = { pushEnabled = it }
             )
             SettingsSwitchRow(
-                title = "Turn Dark Theme",
+                title = stringResource(R.string.turn_dark_theme),
                 checked = darkEnabled,
                 onCheckedChange = { darkEnabled = it }
             )
@@ -244,7 +245,7 @@ private fun EditProfileContent(viewModel: ProfileViewModel, navController: NavHo
                     .height(36.dp)
             ) {
                 Text(
-                    text = "Update Profile",
+                    text = stringResource(R.string.edit_profile_update_button),
                     color = Void,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Medium,

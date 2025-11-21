@@ -39,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -73,7 +74,7 @@ fun CategoriesScreen(
     val context = LocalContext.current
     val activity = context as? Activity
     var selectedIndex by remember { mutableIntStateOf(3) }
-    val categories = InitialExpensesData.getInitialCategories()
+    val categories = InitialExpensesData.getInitialCategories(context)
     var showNewCategoryDialog by remember { mutableStateOf(false) }
     Scaffold(
         bottomBar = {
@@ -98,7 +99,7 @@ fun CategoriesScreen(
             ) {
                 // Usar el nuevo componente reutilizable
                 FinancialHeader(
-                    title = "Categories",
+                    title = stringResource(R.string.categories_title),
                     navController = navController,
                     onNotificationClick = { /* Handle notification click */ },
                     totalBalance = "$7,783.00",
@@ -319,7 +320,7 @@ fun NewCategoryDialog(
                     onValueChange = { categoryName = it },
                     placeholder = {
                         Text(
-                            text = "Write...",
+                            text = stringResource(R.string.write),
                             color = MainGreen,
                             fontFamily = PoppinsFamily
                         )
@@ -357,7 +358,7 @@ fun NewCategoryDialog(
                     )
                 ) {
                     Text(
-                        text = "Save",
+                        text = stringResource(R.string.save),
                         color = LettersAndIcons,
                         fontSize = 16.sp,
                         fontFamily = PoppinsFamily,
@@ -377,7 +378,7 @@ fun NewCategoryDialog(
                     )
                 ) {
                     Text(
-                        text = "Cancel",
+                        text =  stringResource(R.string.cancel),
                         color = LettersAndIcons,
                         fontSize = 16.sp,
                         fontFamily = PoppinsFamily,

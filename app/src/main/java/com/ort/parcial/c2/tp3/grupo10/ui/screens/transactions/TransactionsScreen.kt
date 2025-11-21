@@ -40,7 +40,7 @@ import com.ort.parcial.c2.tp3.grupo10.domain.model.Transaction
 import com.ort.parcial.c2.tp3.grupo10.domain.model.TransactionType
 import com.ort.parcial.c2.tp3.grupo10.ui.components.BottomNavBar
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.*
-
+import androidx.compose.ui.res.stringResource
 @Composable
 fun TransactionsScreen(
     navController: NavHostController? = null,
@@ -67,7 +67,7 @@ fun TransactionsScreen(
     ) { paddingValues ->
     Column(modifier = Modifier.fillMaxSize()) {
         TransactionsHeader(
-            title = "Transaction",
+            title = stringResource(R.string.transactions_title),
             totalBalance = state.totalBalance,
             totalIncome = state.totalIncome,
             totalExpense = state.totalExpense,
@@ -121,7 +121,7 @@ private fun TransactionsHeader(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_flecha_atras),
-                contentDescription = "Back",
+                contentDescription = stringResource(R.string.common_back),
                 modifier = Modifier
                     .size(22.dp)
                     .clickable { onBack() }
@@ -137,7 +137,7 @@ private fun TransactionsHeader(
 
             Image(
                 painter = painterResource(id = R.drawable.ic_notification),
-                contentDescription = "Notifications",
+                contentDescription = stringResource(R.string.common_notifications),
                 modifier = Modifier.size(29.dp)
             )
         }
@@ -151,7 +151,7 @@ private fun TransactionsHeader(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "Total Balance",
+                    text = stringResource(R.string.home_total_balance),
                     color = Honeydew2,
                     fontFamily = PoppinsFamily,
                     fontSize = 14.sp
@@ -171,7 +171,7 @@ private fun TransactionsHeader(
 
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             SummaryCard(
-                label = "Income",
+                label = stringResource(R.string.transactions_income_label),
                 amount = totalIncome,
                 iconRes = R.drawable.ic_income,
                 selected = selected == TransactionsFilter.INCOME,
@@ -179,7 +179,7 @@ private fun TransactionsHeader(
                 modifier = Modifier.weight(1f)
             )
             SummaryCard(
-                label = "Expense",
+                label = stringResource(R.string.transactions_expense_label),
                 amount = totalExpense,
                 iconRes = R.drawable.ic_expense,
                 selected = selected == TransactionsFilter.EXPENSE,

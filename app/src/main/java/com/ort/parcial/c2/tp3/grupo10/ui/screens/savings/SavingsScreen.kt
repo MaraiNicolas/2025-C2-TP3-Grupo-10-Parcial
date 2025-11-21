@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -62,7 +63,7 @@ fun SavingsScreen(
     val context = LocalContext.current
     val activity = context as? Activity
     var selectedIndex by remember { mutableIntStateOf(3) }
-    val savingsItems = InitialExpensesData.getInitialSavings()
+    val savingsItems = InitialExpensesData.getInitialSavings(context)
     Scaffold(
         bottomBar = {
             BottomNavBar(
@@ -86,7 +87,7 @@ fun SavingsScreen(
             ) {
                 // Usar el nuevo componente reutilizable
                 FinancialHeader(
-                    title = "Savings",
+                    title = stringResource(R.string.category_savings),
                     navController = navController,
                     onNotificationClick = { /* Handle notification click */ },
                     totalBalance = "$7,783.00",

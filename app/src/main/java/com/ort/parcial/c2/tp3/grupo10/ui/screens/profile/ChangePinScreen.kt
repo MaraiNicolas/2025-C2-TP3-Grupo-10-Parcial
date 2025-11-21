@@ -76,7 +76,7 @@ fun ChangePinScreen(navController: NavHostController) {
                 // Icono del ojo (usamos un simple texto si no tenemos el Asset de icono)
                 Icon(
                     imageVector = Icons.Filled.VisibilityOff, // Ojo cerrado/tachado
-                    contentDescription = "Ocultar PIN",
+                    contentDescription = stringResource(R.string.ocultar_PIN),
                     tint = MainGreen,
                     modifier = Modifier.size(24.dp) // Tamaño estándar para iconos
                 )

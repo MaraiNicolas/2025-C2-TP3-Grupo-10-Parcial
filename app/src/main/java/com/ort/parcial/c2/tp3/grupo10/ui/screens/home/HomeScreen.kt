@@ -15,12 +15,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import com.ort.parcial.c2.tp3.grupo10.AppStrings
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -82,14 +84,14 @@ fun HomeScreen(
         ) {
             // Header de balance
             FinancialHeader(
-                title = "Hi, Welcome Back",
+                title = stringResource(R.string.welcome),
                 navController = navController,
                 onNotificationClick = { },
                 totalBalance = "$7,783.00",
                 totalExpense = "-$1,187.40",
                 progressPercentage = 0.30f,
                 progressAmount = "$20,000.00",
-                descriptiveText = "30% of your expenses, looks good.",
+                descriptiveText = stringResource(R.string.home_descriptive_30p),
                 showBackArrow = false
             )
 
@@ -188,7 +190,7 @@ fun SavingsSection() {
                     // Ícono del auto
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_car),
-                        contentDescription = "Savings icon",
+                        contentDescription = stringResource(R.string.savings_icon),
                         tint = LettersAndIcons,
                         modifier = Modifier.size(30.dp)
                     )
@@ -196,7 +198,7 @@ fun SavingsSection() {
 
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = "Savings On Goals",
+                    text = stringResource(R.string.home_savings_on_goals),
                     color = LettersAndIcons,
                     fontFamily = PoppinsFamily,
                     fontWeight = FontWeight.SemiBold,
@@ -233,7 +235,7 @@ fun SavingsSection() {
                     )
                     Column {
                         Text(
-                            text = "Revenue Last Week",
+                            text = stringResource(R.string.home_revenue_last_week),
                             color = LettersAndIcons,
                             fontFamily = PoppinsFamily,
                             fontWeight = FontWeight.Medium,
@@ -265,13 +267,13 @@ fun SavingsSection() {
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.svg_food),
-                        contentDescription = "Food",
+                        contentDescription = stringResource(R.string.category_food),
                         tint = LettersAndIcons,
                         modifier = Modifier.size(24.dp)
                     )
                     Column {
                         Text(
-                            text = "Food Last Week",
+                            text = stringResource(R.string.home_food_last_week),
                             color = LettersAndIcons,
                             fontFamily = PoppinsFamily,
                             fontWeight = FontWeight.Medium,

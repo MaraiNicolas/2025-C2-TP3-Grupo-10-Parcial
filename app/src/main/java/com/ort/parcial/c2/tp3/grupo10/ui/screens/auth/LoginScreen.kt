@@ -213,7 +213,7 @@ fun LoginScreen(
                         ) {
                             Image(
                                 painter = painterResource(id = ic_facebook),
-                                contentDescription = "Facebook Login",
+                                contentDescription = stringResource(R.string.login_facebook),
                                 modifier = Modifier.size(24.dp)
                             )
                         }
@@ -228,7 +228,7 @@ fun LoginScreen(
                         ) {
                             Image(
                                 painter = painterResource(id = ic_google),
-                                contentDescription = "Google Login",
+                                contentDescription = stringResource(R.string.login_google), // <-- Así queda perfecto
                                 modifier = Modifier.size(24.dp)
                             )
                         }

@@ -1,34 +1,36 @@
 package com.ort.parcial.c2.tp3.grupo10.data.initial
 
+import android.content.Context
 import com.ort.parcial.c2.tp3.grupo10.R
 import com.ort.parcial.c2.tp3.grupo10.domain.model.Expense
 import com.ort.parcial.c2.tp3.grupo10.domain.model.Category
 
 object InitialExpensesData {
-    fun getInitialCategories(): List<Category> {
+    fun getInitialCategories(context: Context): List<Category> {
         return listOf(
-            Category(name = "Food", iconResId = R.drawable.svg_food),
-            Category(name = "Transport", iconResId = R.drawable.svg_transport),
-            Category(name = "Medicine", iconResId = R.drawable.svg_medicine),
-            Category(name = "Groceries", iconResId = R.drawable.svg_groceries),
-            Category(name = "Rent", iconResId = R.drawable.svg_rent),
-            Category(name = "Gifts", iconResId = R.drawable.svg_gift),
-            Category(name = "Savings", iconResId = R.drawable.svg_savings),
-            Category(name = "Entertainment", iconResId = R.drawable.svg_entertainment),
-            Category(name = "More", iconResId = R.drawable.svg_more)
+            // 3. USA context.getString() PARA OBTENER EL TEXTO
+            Category(name = context.getString(R.string.category_food), iconResId = R.drawable.svg_food),
+            Category(name = context.getString(R.string.category_transport), iconResId = R.drawable.svg_transport),
+            Category(name = context.getString(R.string.category_medicine), iconResId = R.drawable.svg_medicine),
+            Category(name = context.getString(R.string.category_groceries), iconResId = R.drawable.svg_groceries),
+            Category(name = context.getString(R.string.category_rent), iconResId = R.drawable.svg_rent),
+            Category(name = context.getString(R.string.category_gifts), iconResId = R.drawable.svg_gift),
+            Category(name = context.getString(R.string.category_savings), iconResId = R.drawable.svg_savings),
+            Category(name = context.getString(R.string.category_entertainment), iconResId = R.drawable.svg_entertainment),
+            Category(name = context.getString(R.string.category_more), iconResId = R.drawable.svg_more)
         )
     }
-    
-    fun getInitialSavings(): List<Category> {
+
+    fun getInitialSavings(context: Context): List<Category> {
         return listOf(
-            Category(name = "Travel", iconResId = R.drawable.svg_avion),
-            Category(name = "New house", iconResId = R.drawable.svg_casallave),
-            Category(name = "Car", iconResId = R.drawable.svg_auto),
-            Category(name = "Wedding", iconResId = R.drawable.svg_anillos)
+            Category(name = context.getString(R.string.category_travel), iconResId = R.drawable.svg_avion),
+            Category(name = context.getString(R.string.category_new_house), iconResId = R.drawable.svg_casallave),
+            Category(name = context.getString(R.string.category_car), iconResId = R.drawable.svg_auto),
+            Category(name = context.getString(R.string.category_wedding), iconResId = R.drawable.svg_anillos)
         )
+
     }
-    
-    fun getInitialExpenses(): List<Expense> {
+        fun getInitialExpenses(): List<Expense> {
         return listOf(
             Expense(
                 id = "1",

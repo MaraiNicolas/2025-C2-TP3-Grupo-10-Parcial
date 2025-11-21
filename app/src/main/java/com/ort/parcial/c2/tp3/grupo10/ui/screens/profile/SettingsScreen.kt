@@ -89,7 +89,7 @@ fun SettingsScreen(navController: NavHostController) {
     // ----------------------------------------------------------------------
 
     AppScreenShell(
-        screenTitle = "Settings",
+        screenTitle = stringResource(R.string.settings_screen_title),
         headerHeight = STANDARD_HEADER_HEIGHT,
         navController = navController,
         startSelectedIndex = 4

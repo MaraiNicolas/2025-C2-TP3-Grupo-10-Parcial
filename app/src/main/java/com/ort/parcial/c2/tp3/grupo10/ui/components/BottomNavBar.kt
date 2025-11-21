@@ -40,6 +40,7 @@ import com.ort.parcial.c2.tp3.grupo10.ui.theme.Void
 import androidx.navigation.NavController
 import com.ort.parcial.c2.tp3.grupo10.MainActivity
 import android.app.Activity
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.rememberNavController
 
 data class BottomNavItem(
@@ -220,7 +221,7 @@ fun PreviewBottomNavBar() {
                 .padding(paddingValues),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = "Contenido de la pantalla")
+            Text(text = stringResource(R.string.placeholder_content))
         }
     }
 }

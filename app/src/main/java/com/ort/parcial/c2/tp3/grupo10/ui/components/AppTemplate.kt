@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -117,7 +118,7 @@ private fun SimpleHeader(
             IconButton(onClick = backAction, modifier = Modifier.align(Alignment.CenterStart)) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_flecha_atras),
-                    contentDescription = "Volver",
+                    contentDescription = stringResource(R.string.common_back),
                     tint = Color.White
                 )
             }
@@ -153,7 +154,7 @@ private fun SimpleHeader(
                 Icon(
 
                     painter = painterResource(id = R.drawable.ic_notification),
-                    contentDescription = "Notificaciones",
+                    contentDescription = stringResource(R.string.common_notifications),
                     tint = Void,
                     modifier = Modifier.size(20.dp)
                 )
@@ -167,7 +168,7 @@ private fun SimpleHeader(
 fun AppTemplatePreview() {
     MyApplicationTheme {
         AppTemplate(
-            title = "Preview Title",
+            title = stringResource(R.string.preview_title),
             onBack = {},
             onBellClick = {},
             bottomSelected = 0,
@@ -178,7 +179,7 @@ fun AppTemplatePreview() {
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "Aquí va el contenido de la pantalla")
+                Text(text = stringResource(R.string.placeholder_content))
             }
         }
     }

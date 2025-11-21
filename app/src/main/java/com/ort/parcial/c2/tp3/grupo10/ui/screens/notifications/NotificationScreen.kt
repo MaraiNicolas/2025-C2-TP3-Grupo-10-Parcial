@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -35,7 +36,7 @@ fun NotificationsScreen(
     var selectedIndex by remember { mutableIntStateOf(-1) }
 
     AppScreenShell(
-        screenTitle = "Notification",
+        screenTitle = stringResource(R.string.notifications_button_desc),
         headerHeight = 140.dp,
         navController = navController,
         showBackButton = true,
@@ -71,41 +72,47 @@ private fun NotificationList(contentPadding: PaddingValues) {
     val notifications = listOf(
         // --- Today ---
         NotificationItem(
-            R.drawable.ic_recordatorio, "Reminder!",
-            "Set up your automatic savings to meet your savings goal...",
-            time = "17:00", date = "Today"
+            R.drawable.ic_recordatorio,
+            stringResource(R.string.reminder),
+            stringResource(R.string.texto1),
+            time = "17:00", date = stringResource(R.string.today)
         ),
         NotificationItem(
-            R.drawable.ic_estrella, "New Update",
-            "Set up your automatic savings to meet your savings goal...",
-            time = "17:00", date = "Today"
+            R.drawable.ic_estrella,
+            stringResource(R.string.new_update),
+            stringResource(R.string.texto1),
+            time = "17:00", date = stringResource(R.string.today)
         ),
 
         // --- Yesterday ---
         NotificationItem(
-            R.drawable.ic_dinero, "Transactions",
-            "A new transaction has been registered",
-            category = "Groceries | Pantry ",
-            amount = " -$100.00", time = "17:00", date = "Yesterday",
+            R.drawable.ic_dinero,
+            stringResource(R.string.transactions),
+            stringResource(R.string.texto2),
+            category = stringResource(R.string.groceries_pantry),
+            amount = " -$100.00", time = "17:00", date = stringResource(R.string.yesterday),
             amountColor = Color(0xFF00A86B)
         ),
         NotificationItem(
-            R.drawable.ic_recordatorio, "Reminder!",
-            "Set up your automatic savings to meet your savings goal...",
-            time = "17:00", date = "Yesterday"
+            R.drawable.ic_recordatorio,
+            stringResource(R.string.reminder),
+            stringResource(R.string.texto1),
+            time = "17:00", date = stringResource(R.string.yesterday)
         ),
 
         // --- This Weekend ---
         NotificationItem(
-            R.drawable.ic_grafico, "Expense Record",
-            "We recommend that you be more attentive to your finances.",
-            time = "17:00", date = "This Weekend"
+            R.drawable.ic_grafico,
+            stringResource(R.string.expense_recorde),
+            stringResource(R.string.texto3),
+            time = "17:00", date = stringResource(R.string.this_weekend)
         ),
         NotificationItem(
-            R.drawable.ic_dinero, "Transactions",
-            "A new transaction has been registered ",
-            category = "Food | Dinner ",
-            amount = " -$70.00", time = "17:00", date = "This Weekend",
+            R.drawable.ic_dinero,
+            stringResource(R.string.transactions),
+            stringResource(R.string.texto4),
+            category = stringResource(R.string.food_dinner),
+            amount = " -$70.00", time = "17:00", date = stringResource(R.string.this_weekend),
             amountColor = Color(0xFF00A86B)
         )
     )

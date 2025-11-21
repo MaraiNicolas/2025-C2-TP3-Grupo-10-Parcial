@@ -14,6 +14,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -24,6 +25,7 @@ import com.ort.parcial.c2.tp3.grupo10.ui.theme.LettersAndIcons
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.LightGreen
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.MainGreen
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.PoppinsFamily
+import com.ort.parcial.c2.tp3.grupo10.R
 
 @Composable
 fun PasswordInputField(
@@ -65,7 +67,7 @@ fun PasswordInputField(
                 IconButton(onClick = { /* Lógica de toggle de visibilidad */ }) {
                     Icon(
                         imageVector = Icons.Filled.VisibilityOff,
-                        contentDescription = "Toggle password visibility",
+                        contentDescription = stringResource(R.string.common_toggle_password_visibility),
                         tint = LettersAndIcons.copy(alpha = 0.6f) // Color tenue
                     )
                 }

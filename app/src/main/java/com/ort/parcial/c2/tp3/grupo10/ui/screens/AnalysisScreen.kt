@@ -11,11 +11,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.ui.unit.sp
 import com.ort.parcial.c2.tp3.grupo10.ui.components.AppScreenShell
 import com.ort.parcial.c2.tp3.grupo10.ui.components.BottomNavBar
+import com.ort.parcial.c2.tp3.grupo10.R
+
 
 @Composable
 fun AnalysisScreen(navController: NavHostController) {
@@ -24,7 +27,7 @@ fun AnalysisScreen(navController: NavHostController) {
     var selectedIndex by remember { mutableIntStateOf(1) }
 
     AppScreenShell(
-        screenTitle = "Analysis", // Título del header
+        screenTitle = stringResource(R.string.analysis_title), // Título del header
         // Usamos la altura estándar del header
         navController = navController,
         startSelectedIndex = 1
@@ -36,7 +39,7 @@ fun AnalysisScreen(navController: NavHostController) {
                 .padding(padding),
             contentAlignment = Alignment.Center // Centramos el texto
         ) {
-            Text(text = "Análisis", fontSize = 24.sp)
+            Text(text = stringResource(R.string.analisis_text), fontSize = 24.sp)
         }
     }
 }

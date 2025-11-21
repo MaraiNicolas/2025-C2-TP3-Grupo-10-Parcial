@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -65,7 +66,7 @@ fun FinancialHeader(
                         if (showBackArrow) {
                             Image(
                                 painter = painterResource(id = R.drawable.ic_flecha_atras),
-                                contentDescription = "Back",
+                                contentDescription = stringResource(R.string.back_button_desc),
                                 modifier = Modifier
                                     .size(22.dp)
                                     .clickable { navController?.popBackStack() }
@@ -86,10 +87,10 @@ fun FinancialHeader(
                         // Notification Bell
                         Image(
                             painter = painterResource(id = R.drawable.ic_notification),
-                            contentDescription = "Notifications",
+                            contentDescription = stringResource(R.string.notifications_button_desc),
                             modifier = Modifier
                                 .size(29.dp)
-                                .clickable(onClick = {navController?.navigate("notification")} )
+                                .clickable(onClick = { navController?.navigate("notification") })
                         )
                     }
                 }
@@ -116,14 +117,13 @@ fun FinancialHeader(
                                 ) {
                                     Image(
                                         painter = painterResource(id = R.drawable.ic_income),
-                                        contentDescription = "Income",
+                                        contentDescription =stringResource(R.string.transactions_income_label),
                                         modifier = Modifier.size(14.dp),
                                         colorFilter = ColorFilter.tint(LettersAndIcons)
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(
-                                        text = "Total Balance",
-                                        color = LettersAndIcons,
+                                        text = stringResource(R.string.home_total_balance),                                        color = LettersAndIcons,
                                         fontSize = 14.sp,
                                         fontFamily = PoppinsFamily,
                                         fontWeight = FontWeight.Normal
@@ -155,13 +155,13 @@ fun FinancialHeader(
                                 ) {
                                     Image(
                                         painter = painterResource(id = R.drawable.ic_expense),
-                                        contentDescription = "Expense",
+                                        contentDescription = stringResource(R.string.transactions_expense_label),
                                         modifier = Modifier.size(13.5.dp),
                                         colorFilter = ColorFilter.tint(LettersAndIcons)
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(
-                                        text = "Total Expense",
+                                        text = stringResource(R.string.home_total_expense),
                                         color = LettersAndIcons,
                                         fontSize = 14.sp,
                                         fontFamily = PoppinsFamily,
@@ -283,14 +283,14 @@ fun FinancialHeader(
 @Composable
 fun PreviewFinancialHeader() {
     FinancialHeader(
-        title = "Categories",
+    title = stringResource(R.string.home_categories),
         navController = null,
         onNotificationClick = {},
-        totalBalance = "$7,783.00",
-        totalExpense = "-$1,187.40",
+    totalBalance = "$7,783.00",
+    totalExpense = "-$1,187.40",
         progressPercentage = 0.30f,
-        progressAmount = "$20,000.00",
-        descriptiveText = "30% of your expenses, looks good.",
+    progressAmount = "$20,000.00",
+    descriptiveText = stringResource(R.string.home_descriptive_30p),
         horizontalPadding = 18.dp
     )
 }

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">My Application</string>
     <string name="title_activity_main2">MainActivity2</string>
 
     // BLOQUE FORGOT PASSWORD
@@ -126,4 +125,140 @@
     <string name="setting_notifications">Notification Settings</string>
     <string name="setting_password">Password Settings</string>
     <string name="setting_delete_account">Delete Account</string>
+
+        <!-- Nombres de Categorías de Gastos -->
+        <string name="category_food">Food</string>
+        <string name="category_transport">Transport</string>
+        <string name="category_medicine">Medicine</string>
+        <string name="category_groceries">Groceries</string>
+        <string name="category_rent">Rent</string>
+        <string name="category_gifts">Gifts</string>
+        <string name="category_savings">Savings</string>
+        <string name="category_entertainment">Entertainment</string>
+        <string name="category_more">More</string>
+
+        <!-- Nombres de Categorías de Ahorros -->
+        <string name="category_travel">Travel</string>
+        <string name="category_new_house">New house</string>
+        <string name="category_car">Car</string>
+        <string name="category_wedding">Wedding</string>
+
+        <!-- Títulos de Gastos (opcional, pero buena práctica) -->
+        <string name="expense_title_dinner">Dinner</string>
+        <string name="expense_title_pizza">Delivery Pizza</string>
+        <string name="expense_title_fuel">Fuel</string>
+        <!-- ... y así sucesivamente para los demás títulos ... -->
+
+
+    <string name="app_name">FinWise</string>
+
+    <!-- Acciones Comunes y Accesibilidad -->
+    <string name="common_back">Back</string> <!-- Antes: BACK_BUTTON y BACK_EN -->
+    <string name="common_notifications">Notifications</string> <!-- Antes: NOTIFICATIONS y NOTIFICATIONS_EN -->
+    <string name="common_loading">Cargando…</string> <!-- Antes: LOADING y Cargando... -->
+    <string name="common_error">Error</string>
+    <string name="common_toggle_password_visibility">Toggle password visibility</string>
+    <string name="common_hide_pin">Hide PIN</string>
+
+    <!-- Títulos y Textos Genéricos -->
+    <string name="preview_title">Preview Title</string>
+    <string name="placeholder_content">Here goes the screen content</string>
+    <string name="categories_title">Categories</string>
+    <string name="Amount_title">Amount</string>
+
+    <!-- Cabecera Financiera (Home) -->
+    <string name="home_total_balance">Total Balance</string>
+    <string name="home_total_expense">Total Expense</string>
+    <string name="home_categories">Categories</string>
+    <string name="home_descriptive_30p">30% of your expenses, looks good.</string>
+
+    <!-- Ahorros y Resumen (Home) -->
+    <string name="home_savings_on_goals">Savings On Goals</string>
+    <string name="home_revenue_last_week">Revenue Last Week</string>
+    <string name="home_food_last_week">Food Last Week</string>
+
+    <!-- Pestañas (Tabs) -->
+    <string name="tab_daily">Daily</string>
+    <string name="tab_weekly">Weekly</string>
+    <string name="tab_monthly">Monthly</string>
+
+    <!-- Onboarding y Bienvenida -->
+    <string name="onboarding_lorem_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</string>
+    <string name="onboarding_are_you_ready">Are You Ready To</string>
+
+    <!-- Perfil (Profile) -->
+    <string name="profile_loading">Cargando perfil...</string>
+    <string name="profile_photo">Foto de perfil de %1$s</string>
+
+    <!-- Editar Perfil (Edit Profile) -->
+    <string name="edit_profile_screen_title">Edit My Profile</string>
+    <string name="edit_profile_account_settings">Account Settings</string>
+    <string name="edit_profile_username_label">Username</string>
+    <string name="edit_profile_phone_label">Phone</string>
+    <string name="edit_profile_email_label">Email Address</string>
+    <string name="edit_profile_update_button">Update Profile</string>
+
+    <!-- Transacciones (Transactions) -->
+    <string name="transactions_title">Transaction</string>
+    <string name="transactions_income_label">Income</string>
+    <string name="transactions_expense_label">Expense</string>
+
+
+    <string name="login_facebook">Login con Facebook</string>
+    <string name="login_google">Login con Google</string>
+
+    <string name="write">Write...</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+
+
+    <string name="date">Date</string>
+    <string name="select_date">Select date</string>
+    <string name="Calendar">Calendar</string>
+    <string name="cero">$0.00</string>
+    <string name="signoDolar">$</string>
+    <string name="expense_title">Expense Title</string>
+    <string name="enter_expense_title">Enter expense title</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="select_the_category">Select the category</string>
+    <string name="Dropdown">Dropdown</string>Add Expenses
+    <string name="add_expenses">Add Expenses</string>
+    <string name="no_expenses_found">No expenses found</string>
+    <string name="pin">•</string>
+    <string name="welcome">Hi, Welcome Back</string>
+<string name="savings_icon">Savings icon</string>
+
+    <!-- Notification  -->
+    <string name="reminder">Reminder!</string>
+    <string name="texto1">Set up your automatic savings to meet your savings goal...</string>
+    <string name="today">Today</string>
+    <string name="transactions">Transactions</string>
+    <string name="texto2">A new transaction has been registered</string>
+    <string name="yesterday">Yesterdaye</string>
+    <string name="new_update">New Update</string>
+    <string name="groceries_pantry">Groceries | Pantry</string>Expense Record
+    <string name="expense_recorde">Expense Record</string>
+    <string name="texto3">We recommend that you be more attentive to your finances.</string>
+    <string name="this_weekend">This Weekend</string>
+    <string name="texto4">A new transaction has been registered </string>
+    <string name="food_dinner">Food | Dinner </string>
+
+    Expense Manager
+    <string name="welcome_to">Welcome To</string>
+    <string name="expense_manager">Expense Manager</string>
+    <string name="hand_with_money">Hand with money</string>
+    <string name="next">Next</string>
+    <string name="take_control_of">Take Control Of</string>
+    <string name="your_finances">Your Finances?</string>
+    <string name="bank_card_and_mobile_phone">Bank card and mobile phone</string>
+    <string name="ocultar_PIN">Ocultar PIN</string>
+    <string name="push_notifications">Push Notifications</string>
+    <string name="turn_dark_theme">Turn Dark Theme</string>
+    <string name="add_savings">Add Savings</string>
+    FinWise Logo
+    <string name="finWise_icon">FinWise Icon</string>
+    <string name="finWise_logo">FinWise Logo</string>
+    <string name="analysis_title">Analysis</string>
+    <string name="analisis_text">Análisis</string>
+
 </resources>

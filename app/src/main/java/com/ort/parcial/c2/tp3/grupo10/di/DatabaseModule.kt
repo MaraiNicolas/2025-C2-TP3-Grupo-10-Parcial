@@ -71,14 +71,15 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideCategoryRepository(
-        categoryDao: CategoryDao
+        categoryDao: CategoryDao,
+        @ApplicationContext context: Context
     ): CategoryRepository {
         val repository = CategoryRepository(categoryDao)
         
         // Inicializar base de datos con categorías iniciales
         val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
         applicationScope.launch {
-            val initialCategories = InitialExpensesData.getInitialCategories()
+            val initialCategories = InitialExpensesData.getInitialCategories(context)
             repository.initializeDatabase(initialCategories)
         }
         

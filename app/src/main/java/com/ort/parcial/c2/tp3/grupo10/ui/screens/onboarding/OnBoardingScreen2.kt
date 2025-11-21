@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.ort.parcial.c2.tp3.grupo10.AppStrings
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +32,7 @@ import com.ort.parcial.c2.tp3.grupo10.ui.theme.DarkModeGreenBar
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.MainGreen
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.LightGreen2
 import androidx.compose.foundation.layout.offset
+import androidx.compose.ui.res.stringResource
 import com.ort.parcial.c2.tp3.grupo10.ui.theme.PoppinsFamily
 
 @Composable
@@ -56,7 +58,7 @@ fun OnboardingScreen2(navController: NavHostController) {
                     modifier = Modifier.padding(horizontal = 32.dp)
                 ) {
                     Text(
-                        text = "¿Are You Ready To",
+                        text = AppStrings.ONBOARDING_READY,
                         color = DarkModeGreenBar,
                         fontSize = 24.sp,
                         fontFamily = PoppinsFamily, 
@@ -64,7 +66,7 @@ fun OnboardingScreen2(navController: NavHostController) {
                         textAlign = TextAlign.Center
                     )
                     Text(
-                        text = "Take Control Of",
+                        text = stringResource(R.string.take_control_of),
                         color = DarkModeGreenBar,
                         fontSize = 24.sp,
                         fontFamily = PoppinsFamily, 
@@ -72,7 +74,7 @@ fun OnboardingScreen2(navController: NavHostController) {
                         textAlign = TextAlign.Center
                     )
                     Text(
-                        text = "Your Finances?",
+                        text = stringResource(R.string.your_finances),
                         color = DarkModeGreenBar,
                         fontSize = 24.sp,
                         fontFamily = PoppinsFamily, 
@@ -118,7 +120,7 @@ fun OnboardingScreen2(navController: NavHostController) {
                         // Imagen encima del círculo (tamaño original)
                         Image(
                             painter = painterResource(id = R.drawable.ic_bankcardmobilephone),
-                            contentDescription = "Bank card and mobile phone",
+                            contentDescription = stringResource(R.string.bank_card_and_mobile_phone),
                             modifier = Modifier.size(300.dp)
                         )
                     }
@@ -127,7 +129,7 @@ fun OnboardingScreen2(navController: NavHostController) {
 
                     // Botón Next
                     Text(
-                        text = "Next",
+                        text = stringResource(R.string.next),
                         color = DarkModeGreenBar,
                         fontSize = 18.sp,
                         fontFamily = PoppinsFamily, 

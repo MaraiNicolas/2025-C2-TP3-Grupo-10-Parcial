@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -149,7 +150,7 @@ fun ExpensesScreen(
                                 )
                             ) {
                                 Text(
-                                    text = "Add Expenses",
+                                    text = stringResource(R.string.add_expenses),
                                     color = Void,
                                     fontSize = 16.sp,
                                     fontFamily = PoppinsFamily,
@@ -175,7 +176,7 @@ fun ExpenseList(expenses: List<Expense>, categoryIcon: Int) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "No expenses found",
+                text = stringResource(R.string.no_expenses_found),
                 color = Void,
                 fontSize = 16.sp,
                 fontFamily = PoppinsFamily
@@ -218,7 +219,7 @@ fun MonthHeader(month: String, showCalendar: Boolean = false) {
         if (showCalendar) {
             Image(
                 painter = painterResource(id = R.drawable.ic_calendar),
-                contentDescription = "Calendar",
+                contentDescription = stringResource(R.string.Calendar),
                 modifier = Modifier.size(32.dp)
             )
         } else {

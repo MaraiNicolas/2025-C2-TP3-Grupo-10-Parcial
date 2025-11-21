@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -56,7 +57,7 @@ fun OnboardingScreen1(navController: NavHostController) {
                     modifier = Modifier.padding(horizontal = 32.dp)
                 ) {
                     Text(
-                        text = "Welcome To",
+                        text = stringResource(R.string.welcome_to),
                         color = DarkModeGreenBar,
                         fontSize = 28.sp,
                         fontFamily = PoppinsFamily, 
@@ -64,7 +65,7 @@ fun OnboardingScreen1(navController: NavHostController) {
                         textAlign = TextAlign.Center
                     )
                     Text(
-                        text = "Expense Manager",
+                        text = stringResource(R.string.expense_manager),
                         color = DarkModeGreenBar,
                         fontSize = 28.sp,
                         fontFamily = PoppinsFamily, 
@@ -110,7 +111,7 @@ fun OnboardingScreen1(navController: NavHostController) {
                         // Imagen encima del círculo (tamaño original)
                         Image(
                             painter = painterResource(id = R.drawable.ic_manodinero),
-                            contentDescription = "Hand with money",
+                            contentDescription = stringResource(R.string.hand_with_money),
                             modifier = Modifier.size(300.dp)
                         )
                     }
@@ -119,7 +120,7 @@ fun OnboardingScreen1(navController: NavHostController) {
 
                     // Botón Next
                     Text(
-                        text = "Next",
+                        text = stringResource(R.string.next),
                         color = LettersAndIcons,
                         fontSize = 18.sp,
                         fontFamily = PoppinsFamily, 

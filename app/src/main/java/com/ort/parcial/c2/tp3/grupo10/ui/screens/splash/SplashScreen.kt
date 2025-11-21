@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ort.parcial.c2.tp3.grupo10.R
@@ -45,13 +46,13 @@ fun SplashScreen(navController: NavController) {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.icononegro),
-                contentDescription = "FinWise Icon",
+                contentDescription = stringResource(R.string.finWise_icon),
                 modifier = Modifier.size(120.dp)
             )
             Spacer(modifier = Modifier.height(20.dp))
             Image(
                 painter = painterResource(id = R.drawable.finwise_blanco),
-                contentDescription = "FinWise Logo",
+                contentDescription = stringResource(R.string.finWise_logo),
                 modifier = Modifier.height(40.dp)
             )
         }

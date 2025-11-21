@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -136,7 +137,7 @@ fun SavingsDetailScreen(
                                 )
                             ) {
                             Text(
-                                text = "Add Savings",
+                                text = stringResource(R.string.add_savings),
                                 color = Void,
                                 fontSize = 16.sp,
                                 fontFamily = PoppinsFamily,
@@ -162,7 +163,7 @@ fun SavingsExpenseList(expenses: List<Expense>, categoryIcon: Int) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "No expenses found",
+                text = stringResource(R.string.no_expenses_found),
                 color = Void,
                 fontSize = 16.sp,
                 fontFamily = PoppinsFamily
